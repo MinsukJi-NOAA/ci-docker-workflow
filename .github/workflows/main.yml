@@ -29,8 +29,9 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ~/file1.txt
-              ~/file2.txt
+        path: |
+          ~/file1.txt
+          ~/file2.txt
 
 
   test:
