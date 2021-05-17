@@ -1,0 +1,53 @@
+name: Main
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Create files
+      run: |
+        echo $PWD
+        ls -alF
+        echo "Hello!" > ~/file1.txt
+        echo "Howdy!" > ~/file2.txt
+
+    - name: Verify
+      run: |
+        echo $PWD
+        ls -alF
+        cd ~
+        echo $PWD
+        ls -alF
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ~/file1.txt
+              ~/file2.txt
+
+
+  test:
+    name: Test
+    needs: [build]
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+        path: ${{ GITHUB_WORKSPACE }}
+
+    - name: Verify
+      run: |
+        cd ${{ GITHUB_WORKSPACE }}
+        echo $PWD
+        ls -alF
+        cat file1.txt
+        cat file2.txt
