@@ -42,11 +42,11 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: my-artifact
-        path: ${{ GITHUB_WORKSPACE }}
+        path: $GITHUB_WORKSPACE
 
     - name: Verify
       run: |
-        cd ${{ GITHUB_WORKSPACE }}
+        cd $GITHUB_WORKSPACE
         echo $PWD
         ls -alF
         cat file1.txt
