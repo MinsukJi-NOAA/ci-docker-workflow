@@ -17,6 +17,7 @@ jobs:
         ls -alF
         echo "Hello!" > ~/file1.txt
         echo "Howdy!" > ~/file2.txt
+        ${{ github.workspace }}/myscript.sh
 
     - name: Verify
       run: |
@@ -25,6 +26,7 @@ jobs:
         cd ~
         echo $PWD
         ls -alF
+        ${{ github.workspace }}/myscript.sh
 
     - uses: actions/upload-artifact@v2
       with:
