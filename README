@@ -1,0 +1,4 @@
+Instead of uploading and downloading entire docker image after build,
+just upload and download the executable file (with module file). This
+will significantly reduce the time as well as possibility of compress/upload error.
+However, needs to utilize docker create.
