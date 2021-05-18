@@ -19,26 +19,12 @@ jobs:
         ls -alF
         echo "Hello!" > ~/file1.txt
         echo "Howdy!" > ~/file2.txt
-        ${{ github.workspace }}/myscript.sh
-        echo $PWD
-
-    - name: Verify
-      run: |
-        echo $PWD
-        ls -alF
-        cd ~
-        echo $PWD
-        ls -alF
-        ${{ github.workspace }}/myscript.sh
-        echo $PWD
+        tar -cvf ~/my_files.tar ~/file1.txt ~/file2.txt
 
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: |
-          ~/file1.txt
-          ~/file2.txt
-
+        path: ~/my_files.tar
 
   test:
     name: Test
@@ -46,18 +32,21 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - name: Prep
+      run: mkdir -p ${{ github.workspace }}/tests/ci
     - uses: actions/download-artifact@v2
       with:
         name: my-artifact
-        path: ${{ github.workspace }}
+        path: ${{ github.workspace }}/tests/ci
 
     - name: Verify
       run: |
         myid=$(whoami)
         echo $myid
         echo $(id $myid)
-        cd $GITHUB_WORKSPACE
-        echo $PWD
+        cd $GITHUB_WORKSPACE/tests/ci
+        ls -alF
+        tar -xvf my_files.tar
         ls -alF
         cat file1.txt
         cat file2.txt
