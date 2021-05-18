@@ -46,7 +46,7 @@ jobs:
         echo $(id $myid)
         cd $GITHUB_WORKSPACE/tests/ci
         ls -alF
-        tar -xvf my_files.tar
+        tar -xvf my_files.tar -C .
         ls -alF
         cat file1.txt
         cat file2.txt
