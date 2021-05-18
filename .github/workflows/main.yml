@@ -19,7 +19,8 @@ jobs:
         ls -alF
         echo "Hello!" > ~/file1.txt
         echo "Howdy!" > ~/file2.txt
-        tar -cvf ~/my_files.tar ~/file1.txt ~/file2.txt
+        cd ~
+        tar -cvf my_files.tar file1.txt file2.txt
 
     - uses: actions/upload-artifact@v2
       with:
@@ -46,7 +47,7 @@ jobs:
         echo $(id $myid)
         cd $GITHUB_WORKSPACE/tests/ci
         ls -alF
-        tar -xvf my_files.tar -C .
+        tar -xvf my_files.tar
         ls -alF
         cat file1.txt
         cat file2.txt
