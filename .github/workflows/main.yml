@@ -53,6 +53,9 @@ jobs:
 
     - name: Verify
       run: |
+        myid=$(whoami)
+        echo $myid
+        echo $(id $myid)
         cd $GITHUB_WORKSPACE
         echo $PWD
         ls -alF
